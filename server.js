@@ -15,12 +15,14 @@ app.post('/api/getWineRecommendation', async (req, res) => {
   const prompt = `Suggest a wine with a ${flavorProfile} flavor profile from ${countryOrRegion} produced in ${year}.`;
 
   try {
-    const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+    const response = await axios.post('https://api.openai.com/v1/completions', {
+      model: "ada",
       prompt,
       max_tokens: 50,
       n: 1,
-      stop: null,
+      stop: "\n",
       temperature: 0.7,
+      top_p: 1,
     }, {
       headers: {
         'Content-Type': 'application/json',
